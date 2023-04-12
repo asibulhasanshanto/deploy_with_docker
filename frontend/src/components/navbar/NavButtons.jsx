@@ -10,7 +10,7 @@ const NavButtons = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("user");
-    dispatch({ type: "SET_ACCOUNT", payload: null });
+    dispatch({ type: "REMOVE_ACCOUNT" });
     toast.success("Log out successful");
     navigate("/login");
   };
@@ -24,7 +24,10 @@ const NavButtons = () => {
       </Link>
 
       <div className="button_holder float-right flex items-center">
-        <div onClick={handleLogout} className=" items-center border-b-2 border-transparent px-3 py-2  text-sm font-medium text-white bg-gray-800 cursor-pointer rounded-md hover:bg-gray-900 ">
+        <div
+          onClick={handleLogout}
+          className=" items-center border-b-2 border-transparent px-3 py-2  text-sm font-medium text-white bg-gray-800 cursor-pointer rounded-md hover:bg-gray-900 "
+        >
           Log Out
         </div>
       </div>

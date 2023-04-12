@@ -46,6 +46,14 @@ function accountReducer(state, action) {
         account: action.payload,
       };
     }
+    case "REMOVE_ACCOUNT": {
+      // remove from local storage
+      localStorage.removeItem("user");
+      return {
+        ...state,
+        account: null,
+      };
+    }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }

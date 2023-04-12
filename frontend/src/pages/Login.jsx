@@ -11,7 +11,8 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (account.account) navigate("/dashboard");
+    console.log(account);
+    if (account.account && account.account !='null') navigate("/dashboard");
   }, [account]);
 
   const handleSubmit = async (event) => {

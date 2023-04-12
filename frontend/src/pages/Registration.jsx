@@ -14,7 +14,7 @@ const Registration = () => {
   const [error, setError] = React.useState("");
 
   useEffect(() => {
-    if (account.account) navigate("/dashboard");
+    if (account.account && account.account !='null') navigate("/dashboard");
   }, [account]);
 
   const handleSubmit = async (event) => {

@@ -17,8 +17,8 @@ function App() {
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
-    console.log(storedUser);
     if (storedUser) {
+      // console.log(storedUser);
       // console.log("hi");
       dispatch({ type: "SET_ACCOUNT", payload: storedUser });
     }

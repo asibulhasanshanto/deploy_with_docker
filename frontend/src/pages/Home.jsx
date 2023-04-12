@@ -83,16 +83,19 @@ const Home = () => {
   }, [account.account]);
 
   const fetchFinances = async () => {
-    // console.log(account.account);
+    // console.log();
     setIsLoading(true);
     try {
-      const finances = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/api/v1/finances`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${account.account}`,
-        },
-      });
+      const finances = await fetch(
+        `${import.meta.env.VITE_BACKEND_ENDPOINT}/api/v1/finances`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${account.account}`,
+          },
+        }
+      );
       const data = await finances.json();
       // console.log(account.account);
       console.log(data);
