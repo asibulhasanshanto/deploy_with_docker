@@ -1,16 +1,21 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useAccountDispatch } from "../context/AccountContext";
+import { useAccountDispatch, useAccount } from "../context/AccountContext";
 
 const Registration = () => {
   const navigate = useNavigate();
   const dispatch = useAccountDispatch();
+  const account = useAccount();
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passwordConfirm, setPasswordConfirm] = React.useState("");
   const [error, setError] = React.useState("");
+
+  useEffect(() => {
+    if (account.account) navigate("/dashboard");
+  }, [account]);
 
   const handleSubmit = async (event) => {
     setError("");
