@@ -19,21 +19,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           passphrase: 'shanto'
-        script: |
-          # Ensure Docker and Docker Compose are installed on the remote server
-          sudo apt-get update
-          sudo apt-get install -y docker docker-compose
-
-          # Run Docker Compose with the production configuration file
-          docker-compose -f docker-compose.prod.yml up -d
-        envs: GITHUB_WORKSPACE
-
-      - name: Transfer docker-compose.prod.yml to remote server
-        env:
-          REMOTE_SERVER_IP: ${{ secrets.REMOTE_SERVER_IP }}
-          REMOTE_SERVER_USER: ${{ secrets.REMOTE_SERVER_USER }}
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        run: |
-          echo "$SSH_PRIVATE_KEY" > private_key
-          chmod 600 private_key
-          scp -i private_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r ${{ github.workspace }}/docker-compose.prod.yml ${{ secrets.REMOTE_SERVER_USER }}@${{ secrets.REMOTE_SERVER_IP }}:/home/${{ secrets.REMOTE_SERVER_USER }}
+          script: |
+            docker-compose -f docker-compose.prod.yml pull
+            docker-compose -f docker-compose.prod.yml up -d
+        
