@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -25,3 +24,4 @@ jobs:
         run: |
           rsync -r -a -v -e "ssh -i private_key -o StrictHostKeyChecking=no" --exclude '.git/' --exclude '.github/' --exclude 'node_modules/' . $VPS_USER@$VPS_HOST:/app
           ssh -i private_key -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST "cd /app && docker-compose -f docker-compose.prod.yml down && docker-compose -f docker-compose.prod.yml build && docker-compose -f docker-compose.prod.yml up -d"
+
