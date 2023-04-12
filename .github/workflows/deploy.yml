@@ -20,6 +20,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           passphrase: 'shanto'
           script: |
+            cd ../../
             docker-compose -f docker-compose.prod.yml pull
             docker-compose -f docker-compose.prod.yml up -d
         
