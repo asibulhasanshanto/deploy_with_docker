@@ -86,7 +86,7 @@ const Home = () => {
     // console.log(account.account);
     setIsLoading(true);
     try {
-      const finances = await fetch("http://localhost:5000/api/v1/finances", {
+      const finances = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/api/v1/finances`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -139,7 +139,7 @@ const Home = () => {
     try {
       setIsLoading(true);
       const responseIncome = await fetch(
-        "http://localhost:5000/api/v1/finances",
+        `${import.meta.env.VITE_BACKEND_ENDPOINT}/v1/finances`,
         {
           method: "POST",
           headers: {
@@ -171,7 +171,7 @@ const Home = () => {
     try {
       setIsLoading(true);
       const responseIncome = await fetch(
-        `http://localhost:5000/api/v1/finances/${id}`,
+        `${import.meta.env.VITE_BACKEND_ENDPOINT}/api/v1/finances/${id}`,
         {
           method: "DELETE",
           headers: {

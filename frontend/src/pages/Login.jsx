@@ -18,7 +18,7 @@ const Login = () => {
     event.preventDefault();
     setError("");
     try {
-      const response = await fetch(`http://localhost:5000/api/v1/auth/login`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/api/v1/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
