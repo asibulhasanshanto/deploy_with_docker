@@ -18,5 +18,14 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          passphrase: 'shanto'
-          script: ls -al
+          passphrase: "shanto"
+        script: |
+          # Ensure Docker and Docker Compose are installed on the remote server
+          sudo apt-get update
+          sudo apt-get install -y docker docker-compose
+
+          # Transfer docker-compose.prod.yml file to the remote server
+          echo '${{ github.workspace }}/docker-compose.prod.yml' > docker-compose.prod.yml
+
+          # Run Docker Compose with the production configuration file
+          docker-compose -f docker-compose.prod.yml up -d
