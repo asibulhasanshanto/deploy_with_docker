@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAccountDispatch, useAccount } from "../context/AccountContext";
@@ -14,7 +14,7 @@ const Registration = () => {
   const [error, setError] = React.useState("");
 
   useEffect(() => {
-    if (account.account && account.account !='null') navigate("/dashboard");
+    if (account.account && account.account != "null") navigate("/dashboard");
   }, [account]);
 
   const handleSubmit = async (event) => {
