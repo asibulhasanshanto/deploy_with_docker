@@ -23,6 +23,7 @@ jobs:
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
             cd /var/www/
+            rm -rf deploy_with_docker
             git clone https://github.com/asibulhasanshanto/deploy_with_docker.git
             cd deploy_with_docker
             docker compose -f docker-compose.prod.yml up -d --build
