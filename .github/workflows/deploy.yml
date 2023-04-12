@@ -16,22 +16,11 @@ jobs:
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key
           chmod 600 private_key
+          sudo apt-get install -y sshpass
 
-      - name: Install ssh-action
-        run: |
-          sudo apt-get install -y jq
-          VERSION=$(curl --silent https://api.github.com/repos/webfactory/ssh-action/releases/latest | jq -r .tag_name)
-          curl -sLJO https://github.com/webfactory/ssh-action/releases/download/${VERSION}/ssh-action.sh
-          chmod +x ssh-action.sh
-
-      - name: SSH into remote server
+      - name: SSH into server and run ls as root
         env:
           VPS_HOST: ${{ secrets.VPS_HOST }}
           VPS_USER: ${{ secrets.VPS_USER }}
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
-          ./ssh-action.sh \
-            --private-key private_key \
-            --host $VPS_HOST \
-            --user $VPS_USER \
-            --command "cd /app && docker-compose -f docker-compose.prod.yml down && docker-compose -f docker-compose.prod.yml build && docker-compose -f docker-compose.prod.yml up -d && ls -al"
+          ssh -i private_key -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST "sudo ls"
