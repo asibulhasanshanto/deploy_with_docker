@@ -18,12 +18,11 @@ jobs:
           sudo apt-get install -y sshpass
 
       - name: Build and deploy
-        uses: appleboy/ssh-action@master
         env:
           VPS_HOST: ${{ secrets.VPS_HOST }}
           VPS_USER: ${{ secrets.VPS_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-        script: |
-          sshpass -p ${{ secrets.VPS_PASSWORD }} scp -o StrictHostKeyChecking=no -r . ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/home/${{ secrets.VPS_USER }}/app
-          ls -la
+        # login to vps
+        run: |
+          sshpass -p ${{ secrets.VPS_PASSWORD }} ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} -p ${{ secrets.VPS_PORT }} "ls -al"
