@@ -23,7 +23,5 @@ jobs:
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
             cd /var/www/
-            pwd
-            ls -al
-            git pull origin master
+            git clone git@github.com:asibulhasanshanto/deploy_with_docker.git
             ls -al
