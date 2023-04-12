@@ -139,7 +139,7 @@ const Home = () => {
     try {
       setIsLoading(true);
       const responseIncome = await fetch(
-        `${import.meta.env.VITE_BACKEND_ENDPOINT}/v1/finances`,
+        `${import.meta.env.VITE_BACKEND_ENDPOINT}/api/v1/finances`,
         {
           method: "POST",
           headers: {
