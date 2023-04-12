@@ -15,7 +15,7 @@ module.exports = (app) => {
   // Enable CORS request
   app.use(
     cors({
-      origin: 'http://localhost:5173',
+      origin: '*',
     })
   );
 
