@@ -25,5 +25,4 @@ jobs:
             cd /var/www/
             rm -rf *
             git pull origin master
-            cd deploy_with_docker
-            git status
+            ls -al
