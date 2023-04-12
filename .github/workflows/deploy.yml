@@ -23,6 +23,6 @@ jobs:
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
             cd /var/www/
-            rm -rf *
+            ls -al
             git pull origin master
             ls -al
