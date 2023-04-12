@@ -12,16 +12,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up SSH
-        run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key
-          chmod 600 private_key
-          sudo apt-get install -y sshpass
-
-      - name: SSH into server and run ls as root
-        env:
-          VPS_HOST: ${{ secrets.VPS_HOST }}
-          VPS_USER: ${{ secrets.VPS_USER }}
-          ROOT_PASSWORD: ${{ secrets.VPS_PASSWORD }}
-        run: |
-          echo "$VPS_PASSWORD" | sshpass -p "$VPS_PASSWORD" ssh -i private_key -o StrictHostKeyChecking=no root@$VPS_HOST "sudo ls"
+      - name: Connect via SSH and run ls -al
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: ls -al
