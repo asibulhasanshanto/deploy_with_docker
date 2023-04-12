@@ -17,6 +17,12 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key
           chmod 600 private_key
           sudo apt-get install -y sshpass
+          echo "Host ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}" >> ~/.ssh/config
+          echo "  IdentityFile $(pwd)/private_key" >> ~/.ssh/config
+          echo "  LogLevel ERROR" >> ~/.ssh/config
+          echo "  UserKnownHostsFile /dev/null" >> ~/.ssh/config
+          echo "  StrictHostKeyChecking no" >> ~/.ssh/config
+          ssh-keyscan ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
 
       - name: Build and deploy
         env:
