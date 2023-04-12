@@ -19,7 +19,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           passphrase: "shanto"
-        script: |
+          script: |
           # Ensure Docker and Docker Compose are installed on the remote server
           sudo apt-get update
           sudo apt-get install -y docker docker-compose
