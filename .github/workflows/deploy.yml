@@ -14,27 +14,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: true
-          tags: mern-app:${{ env.COMMIT_SHA }}
-
-      - name: Save commit SHA to environment file
-        run: echo "COMMIT_SHA=${{ env.COMMIT_SHA }}" >> $GITHUB_ENV
-
       - name: Deploy to production
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          passphrase: "shanto"
-          env:
-            COMMIT_SHA: ${{ env.COMMIT_SHA }}
-          run: |
-            cd /path/to/github/repo
-            git pull origin master
-            docker-compose -f docker-compose.prod.yml pull
-            docker-compose -f docker-compose.prod.yml up -d
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          script: |
+            cd /var/www/html/
+            git pull origin main
+            git status
