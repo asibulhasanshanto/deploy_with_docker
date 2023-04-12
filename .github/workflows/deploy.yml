@@ -22,5 +22,6 @@ jobs:
         env:
           VPS_HOST: ${{ secrets.VPS_HOST }}
           VPS_USER: ${{ secrets.VPS_USER }}
+          ROOT_PASSWORD: ${{ secrets.VPS_PASSWORD }}
         run: |
-          ssh -i private_key -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST "sudo ls"
+          echo "$VPS_PASSWORD" | sshpass -p "$VPS_PASSWORD" ssh -i private_key -o StrictHostKeyChecking=no root@$VPS_HOST "sudo ls"
